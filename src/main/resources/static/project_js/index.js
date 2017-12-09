@@ -36,7 +36,6 @@ var vm_2 = new Vue({
             }
             this.liveChat.insertTime = new Date();
             //保存后，向页面数据源添加数据，让发送消息立即生效，id为0
-            scrollTop();
             vm_1.data.push({
                 userName: this.liveChat.userName,
                 content: this.liveChat.content,
@@ -45,7 +44,6 @@ var vm_2 = new Vue({
                 roomId: 1
             });
             this.liveChat.roomId = 1;
-            setTimeout(function(){scrollTop()},20);
             sendPost(saveMessage, this.liveChat);
             //避免每次输入用户，只是聊天内容清空
             this.liveChat.content = "";
@@ -53,6 +51,12 @@ var vm_2 = new Vue({
     }
 });
 
+/**
+ * 监听对象vm_1中data值的变化
+ */
+vm_1.$watch('data',function(val){
+    scrollTop()
+})
 /**
  * ajax 发送post请求，
  * @param url
@@ -81,9 +85,8 @@ function sendPost(url, data) {
  */
 function scrollTop() {
     var div = document.getElementById('message');
-    div.scrollTop = div.scrollHeight;
+    div.scrollTop = div.scrollHeight + 20;//加20是因为用margin
 }
-
 
 $(document).ready(function () {
     getNewData();
@@ -121,7 +124,6 @@ function getNewData() {
             vm_1.data.pop();
         }
         vm_1.data.push(v)
-        scrollTop();
     });
 }
 
