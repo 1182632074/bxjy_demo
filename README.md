@@ -1,4 +1,4 @@
-# bxjy_demo
+# 办学教育-在线聊天室
  采用 SpringBoot + mybatis + vue +thymeleaf 等开发一个简单的在线聊天室系统
 
 ## 现有功能说明：<br><br>
