@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bxjy.demo.repositpry.LiveChatRepository">
+    <resultMap id="BaseResultMap" type="com.bxjy.demo.entity.LiveChat">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="room_id" property="roomId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, room_id, user_name, content, insert_time
+    </sql>
+    <select id="findAllLiveChat" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM live_chat where 1 = 1
+        <if test="maxid!=null">
+            and id > #{maxid}
+            order by insert_time
+        </if>
+    </select>
+
+    <insert id="saveLiveChat" parameterType="com.bxjy.demo.entity.LiveChat">
+        INSERT INTO live_chat
+        (room_id,user_name,content,insert_time)
+        VALUES
+        (#{roomId}, #{userName}, #{content},now())
+    </insert>
+
+    <delete id="delete" parameterType="com.bxjy.demo.entity.LiveChat">
+        DELETE FROM
+        live_chat
+        WHERE
+        id =#{id}
+    </delete>
+</mapper>

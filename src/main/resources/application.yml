@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: develop
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://111.231.117.219:3306/live_db
+    username: wsy
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  thymeleaf:
+    prefix:classpath:/templates/
+    suffix.html
+    mode:HTML5
+    encoding:UTF-8
+    content-type:text/html
+    spring.thymeleaf.cache:false
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  check-config-location: true
